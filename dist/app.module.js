@@ -9,16 +9,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const user_module_1 = require("./api/user/user.module");
-const auth_module_1 = require("./api/auth/auth.module");
+const config_1 = require("@nestjs/config");
+const authentication_module_1 = require("./api/authentication/authentication.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb+srv://aniket:aniket@cluster0.bn6fu.mongodb.net/kinisRoleTest?retryWrites=true&w=majority'),
-            user_module_1.UserModule,
-            auth_module_1.AuthModule,
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+                envFilePath: ".env",
+                expandVariables: true,
+            }),
+            mongoose_1.MongooseModule.forRootAsync({
+                imports: [config_1.ConfigModule],
+                useFactory: async (configService) => ({
+                    uri: configService.get("MONGO_URL"),
+                }),
+                inject: [config_1.ConfigService],
+            }),
+            authentication_module_1.AuthenticationModule,
         ],
         controllers: [],
         providers: [],
