@@ -31,7 +31,7 @@ export class ProductController {
   }
 
   @Get("/all")
-  asyncg getAllProducts(@Query() query: ExpressQuery): Promise<Product[]> {
+  async getAllProducts(@Query() query: ExpressQuery): Promise<Product[]> {
     return this.productService.handleGetAllProducts(query);
   }
 
