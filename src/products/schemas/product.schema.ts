@@ -16,13 +16,13 @@ export class Product {
   @Prop()
   description?: string;
 
-  @Prop()
+  @Prop({ default: 0})
   price: number;
 
   @Prop()
   imageUrl?: string;
 
-  @Prop()
+  @Prop({ default: 0})
   stock: number;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })

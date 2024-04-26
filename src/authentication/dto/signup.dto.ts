@@ -26,6 +26,15 @@ export class SignupDTO {
   @IsEnum(UserRole, { message: "Please Enter a valid role" })
   readonly role: string;
 
+  readonly address: {
+    addr1: string;
+    addr2: string;
+    city: string;
+    state: string;
+    country: string;
+    zip: string;
+  };
+
   @IsNotEmpty()
   @IsString()
   @MinLength(6)
