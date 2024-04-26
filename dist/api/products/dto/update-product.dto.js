@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateProductDTO = void 0;
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
-const user_schema_1 = require("../../authentication/schema/user.schema");
+const user_schema_1 = require("../../../authentication/schema/user.schema");
 class CategoryDTO {
 }
 __decorate([

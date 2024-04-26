@@ -1,4 +1,4 @@
-import { User } from "../../authentication/schema/user.schema";
+import { User } from "../../../authentication/schema/user.schema";
 import mongoose from "mongoose";
 declare class CategoryDTO {
     name: string;

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { Product } from "./schemas/product.schema";
 import { Query } from "express-serve-static-core";
-import { User } from "../authentication/schema/user.schema";
+import { User } from "../../authentication/schema/user.schema";
 export declare class ProductService {
     private productModel;
     constructor(productModel: mongoose.Model<Product>);

@@ -16,12 +16,13 @@ export class AuthenticationService {
   ) {}
 
   async signup(signupDTO: SignupDTO): Promise<{ token: string }> {
-    const { firstname, lastname, email, password } = signupDTO;
+    const { firstname, lastname, email, password, role } = signupDTO;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await this.userModel.create({
       firstname,
       lastname,
       email,
+      role,
       password: hashedPassword,
     });
 
@@ -41,7 +42,7 @@ export class AuthenticationService {
     }
 
     const token = this.jwtService.sign({ id: user._id });
-    return { token };
+    return { token, ...user };
   }
 
   async findOne(query: any): Promise<any> {

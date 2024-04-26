@@ -10,7 +10,7 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const config_1 = require("@nestjs/config");
-const authentication_module_1 = require("./api/authentication/authentication.module");
+const authentication_module_1 = require("./authentication/authentication.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -24,7 +24,7 @@ AppModule = __decorate([
             mongoose_1.MongooseModule.forRootAsync({
                 imports: [config_1.ConfigModule],
                 useFactory: async (configService) => ({
-                    uri: configService.get("MONGO_URL"),
+                    uri: configService.get("MONGO_URI"),
                 }),
                 inject: [config_1.ConfigService],
             }),

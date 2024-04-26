@@ -16,7 +16,7 @@ export class ProductService {
   ) {}
 
   async handleCreateProduct(product: Product, user: User): Promise<Product> {
-    const data = Object.assign(product, {user: user._id});
+    const data = Object.assign(product, { user: user._id });
     return await this.productModel.create(data);
   }
   async handleGetAllProducts(query: Query): Promise<Product[]> {

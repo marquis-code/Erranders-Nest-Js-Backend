@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { AuthenticationModule } from "./api/authentication/authentication.module";
+import { AuthenticationModule } from "./authentication/authentication.module";
 
 @Module({
   imports: [
@@ -13,14 +13,23 @@ import { AuthenticationModule } from "./api/authentication/authentication.module
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>("MONGO_URL"),
+        uri: configService.get<string>("MONGO_URI"),
       }),
       inject: [ConfigService],
     }),
-    // MongooseModule.forRoot('mongodb+srv://erranders-database:erranders-database@erranders-database.edxdtm3.mongodb.net/?retryWrites=true&w=majority&appName=erranders-database'),
     AuthenticationModule,
   ],
   controllers: [],
   providers: [],
 })
 export class AppModule {}
+
+// @Module({
+//   imports: [
+//    MongooseModule.forRoot(process.env.MONGO_URI),
+//     AuthenticationModule,
+//   ],
+//   controllers: [],
+//   providers: [],
+// })
+// export class AppModule {}

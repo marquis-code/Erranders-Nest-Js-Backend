@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductSchema = exports.Product = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
-const user_schema_1 = require("../../authentication/schema/user.schema");
+const user_schema_1 = require("../../../authentication/schema/user.schema");
 const mongoose_2 = require("mongoose");
 let CategoryDTO = class CategoryDTO {
 };

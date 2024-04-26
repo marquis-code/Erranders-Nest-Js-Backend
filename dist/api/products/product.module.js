@@ -12,7 +12,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const product_schema_1 = require("./schemas/product.schema");
 const product_controller_1 = require("./product.controller");
 const product_service_1 = require("./product.service");
-const authentication_module_1 = require("../authentication/authentication.module");
+const authentication_module_1 = require("../../authentication/authentication.module");
 let ProductModule = class ProductModule {
 };
 ProductModule = __decorate([
