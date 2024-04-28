@@ -18,6 +18,10 @@ export class SignupDTO {
 
   @IsNotEmpty()
   @IsString()
+  readonly phone: string;
+
+  @IsNotEmpty()
+  @IsString()
   @IsEmail({}, { message: "Please Enter a valid email address" })
   readonly email: string;
 
