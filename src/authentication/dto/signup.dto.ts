@@ -28,7 +28,7 @@ export class SignupDTO {
 
   readonly address: {
     addr1: string;
-    addr2: string;
+    addr2?: string;
     city: string;
     state: string;
     country: string;

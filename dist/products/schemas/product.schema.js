@@ -31,7 +31,7 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "description", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ default: 0 }),
     __metadata("design:type", Number)
 ], Product.prototype, "price", void 0);
 __decorate([
@@ -39,7 +39,7 @@ __decorate([
     __metadata("design:type", String)
 ], Product.prototype, "imageUrl", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ default: 0 }),
     __metadata("design:type", Number)
 ], Product.prototype, "stock", void 0);
 __decorate([

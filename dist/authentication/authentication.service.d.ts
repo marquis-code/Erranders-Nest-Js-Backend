@@ -1,4 +1,4 @@
-import { FilterQuery, Model } from 'mongoose';
+import { FilterQuery, Model } from "mongoose";
 import { User } from "./schema/user.schema";
 import { JwtService } from "@nestjs/jwt";
 import { SignupDTO } from "./dto/signup.dto";
@@ -12,6 +12,7 @@ export declare class AuthenticationService {
     }>;
     login(loginDTO: LoginDTO): Promise<{
         token: string;
+        user: any;
     }>;
     findOne(query: any): Promise<any>;
     find(usersFilterQuery: FilterQuery<User>): Promise<User[]>;

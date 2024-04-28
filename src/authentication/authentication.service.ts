@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { FilterQuery, Model } from 'mongoose';
+import { FilterQuery, Model } from "mongoose";
 import { User } from "./schema/user.schema";
 import * as bcrypt from "bcryptjs";
 import { JwtService } from "@nestjs/jwt";
@@ -16,13 +16,14 @@ export class AuthenticationService {
   ) {}
 
   async signup(signupDTO: SignupDTO): Promise<{ token: string }> {
-    const { firstname, lastname, email, password, role } = signupDTO;
+    const { firstname, lastname, email, password, role, address } = signupDTO;
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await this.userModel.create({
       firstname,
       lastname,
       email,
       role,
+      address,
       password: hashedPassword,
     });
 
@@ -30,23 +31,43 @@ export class AuthenticationService {
     return { token };
   }
 
-  async login(loginDTO: LoginDTO): Promise<{ token: string }> {
-    const { email, password } = loginDTO;
+  async login(
+    loginDTO: LoginDTO
+  ): Promise<{ token: string; user: any }> {
+    const { email, password: userPassword } = loginDTO;
     const user = await this.userModel.findOne({ email });
     if (!user) {
       throw new UnauthorizedException("Invalid Email or Password");
     }
-    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    const isPasswordMatch = await bcrypt.compare(userPassword, user.password);
     if (!isPasswordMatch) {
       throw new UnauthorizedException("Invalid Email or Password");
     }
 
     const token = this.jwtService.sign({ id: user._id });
-    return { token, ...user };
+    console.log(user, "user here");
+    return {
+      token,
+      user: {
+        role: user.role,
+        _id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        address: {
+          addr1: user.address.addr1,
+          addr2: user.address.addr2,
+          city: user.address.city,
+          state: user.address.state,
+          country: user.address.country,
+          zip: user.address.zip,
+        }
+      },
+    };
   }
 
   async findOne(query: any): Promise<any> {
-    return await this.userModel.findOne(query).select('+password');
+    return await this.userModel.findOne(query).select("+password");
   }
 
   async find(usersFilterQuery: FilterQuery<User>): Promise<User[]> {

@@ -12,26 +12,45 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSchema = exports.User = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const user_role_enum_1 = require("../dto/user.role.enum");
 let User = class User extends mongoose_2.Document {
 };
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], User.prototype, "firstname", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], User.prototype, "lastname", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ unique: [true, "Email already exist"] }),
+    (0, mongoose_1.Prop)({ unique: true, required: true, index: true }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, mongoose_1.Prop)(),
+    (0, mongoose_1.Prop)({
+        required: true,
+        type: {
+            addr1: { type: String, required: true },
+            addr2: { type: String },
+            city: { type: String, required: true },
+            state: { type: String, required: true },
+            country: { type: String, required: true },
+            zip: { type: String, required: true }
+        }
+    }),
+    __metadata("design:type", Object)
+], User.prototype, "address", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
+        type: String,
+        enum: Object.values(user_role_enum_1.UserRole),
+        default: user_role_enum_1.UserRole.USER
+    }),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
 User = __decorate([
