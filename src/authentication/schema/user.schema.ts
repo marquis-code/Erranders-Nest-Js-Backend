@@ -23,19 +23,19 @@ export class User extends Document {
     type: {
       addr1: { type: String, required: true },
       addr2: { type: String },
-      city: { type: String, required: true },
-      state: { type: String, required: true },
-      country: { type: String, required: true },
-      zip: { type: String, required: true }
+      city: { type: String },
+      state: { type: String },
+      country: { type: String },
+      zip: { type: String }
     }
   })
   address: {
     addr1: string,
     addr2?: string, // Optional
-    city: string,
-    state: string,
-    country: string,
-    zip: string
+    city?: string,
+    state?: string,
+    country?: string,
+    zip?: string
   };
 
   @Prop({
