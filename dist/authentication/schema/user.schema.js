@@ -32,15 +32,19 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], User.prototype, "phone", void 0);
+__decorate([
     (0, mongoose_1.Prop)({
         required: true,
         type: {
             addr1: { type: String, required: true },
             addr2: { type: String },
-            city: { type: String, required: true },
-            state: { type: String, required: true },
-            country: { type: String, required: true },
-            zip: { type: String, required: true }
+            city: { type: String },
+            state: { type: String },
+            country: { type: String },
+            zip: { type: String }
         }
     }),
     __metadata("design:type", Object)

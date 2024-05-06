@@ -20,6 +20,9 @@ export class OrderDTO {
     @IsNotEmpty()
     user: string;
 
+    @IsNotEmpty()
+    location: string;
+
     @IsNumber()
     @IsNotEmpty()
     total: number;

@@ -1,14 +1,15 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
-import { User } from "../../authentication/schema/user.schema";
-import mongoose from "mongoose";
+import { User } from "../../auth/schema/user.schema";
+import { Document } from "mongoose";
+import * as mongoose from "mongoose";
 
+export type ProductDocument = Product & Document;
 @Schema({
   timestamps: true,
 })
-class CategoryDTO {
-  name: string;
-}
-
+// class CategoryDTO {
+//   name: string;
+// }
 export class Product {
   @Prop()
   name: string;
@@ -16,20 +17,21 @@ export class Product {
   @Prop()
   description?: string;
 
-  @Prop({ default: 0})
+  @Prop({ default: 0 })
   price: number;
 
   @Prop()
   imageUrl?: string;
 
-  @Prop({ default: 0})
+  @Prop({ default: 0 })
   stock: number;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: "User" })
   user: User;
 
   @Prop()
-  categories: CategoryDTO[];
+  category: string;
+  // categories: CategoryDTO[];
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

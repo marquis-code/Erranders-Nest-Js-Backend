@@ -5,13 +5,14 @@ export declare class User extends Document {
     lastname: string;
     email: string;
     password: string;
+    phone: string;
     address: {
         addr1: string;
         addr2?: string;
-        city: string;
-        state: string;
-        country: string;
-        zip: string;
+        city?: string;
+        state?: string;
+        country?: string;
+        zip?: string;
     };
     role: UserRole;
 }

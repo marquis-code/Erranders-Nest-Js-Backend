@@ -11,6 +11,8 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const config_1 = require("@nestjs/config");
 const authentication_module_1 = require("./authentication/authentication.module");
+const product_module_1 = require("./products/product.module");
+const order_module_1 = require("./order/order.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -29,6 +31,8 @@ AppModule = __decorate([
                 inject: [config_1.ConfigService],
             }),
             authentication_module_1.AuthenticationModule,
+            product_module_1.ProductModule,
+            order_module_1.OrderModule
         ],
         controllers: [],
         providers: [],

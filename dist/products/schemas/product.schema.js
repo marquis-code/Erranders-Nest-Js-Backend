@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductSchema = exports.Product = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const user_schema_1 = require("../../authentication/schema/user.schema");
-const mongoose_2 = require("mongoose");
+const mongoose = require("mongoose");
 let CategoryDTO = class CategoryDTO {
 };
 CategoryDTO = __decorate([
@@ -43,7 +43,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Product.prototype, "stock", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ type: mongoose_2.default.Schema.Types.ObjectId, ref: "User" }),
+    (0, mongoose_1.Prop)({ type: mongoose.Schema.Types.ObjectId, ref: "User" }),
     __metadata("design:type", user_schema_1.User)
 ], Product.prototype, "user", void 0);
 __decorate([

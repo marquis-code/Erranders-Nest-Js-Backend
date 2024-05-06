@@ -22,8 +22,23 @@ let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
     }
-    async createProduct(product, req) {
-        return this.productService.handleCreateProduct(product, req.user);
+    async createProduct(product, req, res) {
+        try {
+            console.log(req, 'uere');
+            const newProduct = await this.productService.handleCreateProduct(product, req.user);
+            return res.status(common_1.HttpStatus.CREATED).json({
+                message: "Product has been created successfully",
+                newProduct,
+            });
+        }
+        catch (err) {
+            console.log(err, 'error message');
+            return res.status(common_1.HttpStatus.BAD_REQUEST).json({
+                statusCode: 400,
+                message: "Error: Product not created!",
+                error: "Bad Request",
+            });
+        }
     }
     async getAllProducts(query) {
         return this.productService.handleGetAllProducts(query);
@@ -39,12 +54,13 @@ let ProductController = class ProductController {
     }
 };
 __decorate([
-    (0, common_1.Post)("create"),
+    (0, common_1.Post)('create'),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_product_dto_1.CreateProductDTO, Object]),
+    __metadata("design:paramtypes", [create_product_dto_1.CreateProductDTO, Object, Object]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "createProduct", null);
 __decorate([
@@ -55,14 +71,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getAllProducts", null);
 __decorate([
-    (0, common_1.Get)(":id"),
+    (0, common_1.Get)("/:id"),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "getProductById", null);
 __decorate([
-    (0, common_1.Put)(":id"),
+    (0, common_1.Put)("/:id"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Param)("id")),
@@ -71,7 +87,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "updateProduct", null);
 __decorate([
-    (0, common_1.Delete)(":id"),
+    (0, common_1.Delete)("/:id"),
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)()),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),

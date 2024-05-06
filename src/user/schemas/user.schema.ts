@@ -1,6 +1,8 @@
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { UserRole } from '../dto/user.role.enum';
+import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
+import { Role } from 'src/auth/enums/role.enum';
+
+export type UserDocument = User & Document;
 
 @Schema({
   timestamps: true,
@@ -21,6 +23,9 @@ export class User extends Document {
   @Prop({ required: true })
   phone: string;
 
+  @Prop()
+  location: string;
+
   @Prop({
     required: true,
     type: {
@@ -29,24 +34,20 @@ export class User extends Document {
       city: { type: String },
       state: { type: String },
       country: { type: String },
-      zip: { type: String }
-    }
+      zip: { type: String },
+    },
   })
   address: {
-    addr1: string,
-    addr2?: string, // Optional
-    city?: string,
-    state?: string,
-    country?: string,
-    zip?: string
+    addr1: string;
+    addr2?: string; // Optional
+    city?: string;
+    state?: string;
+    country?: string;
+    zip?: string;
   };
 
-  @Prop({
-    type: String,
-    enum: Object.values(UserRole),
-    default: UserRole.USER
-  })
-  role: UserRole;
+  @Prop()
+  roles: Role[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -4,18 +4,52 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import mongoose from "mongoose";
-import { Product } from "./schemas/product.schema";
+import * as mongoose from "mongoose";
+import { Model } from "mongoose";
+import { Product, ProductDocument } from "./schemas/product.schema";
+import { CreateProductDTO } from "./dto/create-product.dto";
+import { FilterProductDTO } from "./dto/filter-product.dto";
 import { Query } from "express-serve-static-core";
-import { User } from "../authentication/schema/user.schema";
+import { User } from "../auth/schema/user.schema";
 
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectModel(Product.name) private productModel: mongoose.Model<Product>
+    @InjectModel("Product")
+    private readonly productModel: Model<ProductDocument>
   ) {}
 
-  async handleCreateProduct(product: Product, user: User): Promise<Product> {
+  async getFilteredProducts(
+    filterProductDTO: FilterProductDTO
+  ): Promise<Product[]> {
+    const { category, search } = filterProductDTO;
+    let products = await this.getAllProducts();
+
+    if (search) {
+      products = products.filter(
+        (product) =>
+          product.name.includes(search) || product.description.includes(search)
+      );
+    }
+
+    if (category) {
+      products = products.filter((product) => product.category === category);
+    }
+
+    return products;
+  }
+
+  async getAllProducts(): Promise<Product[]> {
+    const products = await this.productModel.find().exec();
+    return products;
+  }
+
+  async getProduct(id: string): Promise<Product> {
+    const product = await this.productModel.findById(id).exec();
+    return product;
+  }
+
+  async addProduct(product: Product, user: User): Promise<Product> {
     const data = Object.assign(product, { user: user._id });
     return await this.productModel.create(data);
   }
@@ -47,10 +81,16 @@ export class ProductService {
     }
     return product;
   }
-  async handleUpdateProduct(product: Product, id: string): Promise<Product> {
-    return await this.productModel.findByIdAndUpdate(id, product);
+  async updateProduct(product: Product, id: string): Promise<Product> {
+    const updatedProduct = await this.productModel.findByIdAndUpdate(
+      id,
+      product,
+      { new: true }
+    );
+    return updatedProduct;
   }
-  async handleDeleteProduct(id: string): Promise<Product> {
-    return await this.productModel.findByIdAndDelete(id);
+  async deleteProduct(id: string): Promise<Product> {
+    const deletedProduct = await this.productModel.findByIdAndRemove(id);
+    return deletedProduct;
   }
 }

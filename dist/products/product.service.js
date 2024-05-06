@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const mongoose_2 = require("mongoose");
+const mongoose = require("mongoose");
 const product_schema_1 = require("./schemas/product.schema");
 let ProductService = class ProductService {
     constructor(productModel) {
@@ -43,7 +43,7 @@ let ProductService = class ProductService {
             .skip(skip);
     }
     async handleGetProductById(id) {
-        const isValidId = mongoose_2.default.isValidObjectId(id);
+        const isValidId = mongoose.isValidObjectId(id);
         if (!isValidId) {
             throw new common_1.BadRequestException("Please enter a correct product id.");
         }
@@ -63,7 +63,7 @@ let ProductService = class ProductService {
 ProductService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(product_schema_1.Product.name)),
-    __metadata("design:paramtypes", [mongoose_2.default.Model])
+    __metadata("design:paramtypes", [mongoose.Model])
 ], ProductService);
 exports.ProductService = ProductService;
 //# sourceMappingURL=product.service.js.map

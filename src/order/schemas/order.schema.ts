@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types } from "mongoose";
-import { User } from "../../authentication/schema/user.schema";
+import { User } from "../../auth/schema/user.schema";
 import { Product } from "../../products/schemas/product.schema";
 
 export type OrderDocument = Order & Document;
@@ -25,10 +25,17 @@ export class Order {
     {
       product: { type: Types.ObjectId, ref: "Product", required: true },
       quantity: { type: Number, default: 1 },
-      price: { type: Number, required: true }
+      price: { type: Number, required: true },
     },
   ])
-  products: { product: Types.ObjectId | Product; quantity: number; price: number }[];
+  products: {
+    product: Types.ObjectId | Product;
+    quantity: number;
+    price: number;
+  }[];
+
+  @Prop()
+  location: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

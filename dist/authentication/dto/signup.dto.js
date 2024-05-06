@@ -27,6 +27,11 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], SignupDTO.prototype, "phone", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsEmail)({}, { message: "Please Enter a valid email address" }),
     __metadata("design:type", String)
 ], SignupDTO.prototype, "email", void 0);

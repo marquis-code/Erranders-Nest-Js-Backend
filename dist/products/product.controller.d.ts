@@ -6,7 +6,7 @@ import { Query as ExpressQuery } from "express-serve-static-core";
 export declare class ProductController {
     private readonly productService;
     constructor(productService: ProductService);
-    createProduct(product: CreateProductDTO, req: any): Promise<Product>;
+    createProduct(product: CreateProductDTO, req: any, res: any): Promise<Product>;
     getAllProducts(query: ExpressQuery): Promise<Product[]>;
     getProductById(id: string): Promise<Product>;
     updateProduct(product: UpdateProductDTO, id: string): Promise<Product>;

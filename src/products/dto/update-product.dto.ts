@@ -7,16 +7,16 @@ import {
   IsUrl,
   Min,
   IsEmpty,
-  ValidateNested,
+  // ValidateNested,
 } from "class-validator";
-import { Type } from "class-transformer";
-import { User } from "../../authentication/schema/user.schema";
+// import { Type } from "class-transformer";
+import { User } from "../../auth/schema/user.schema";
 
-class CategoryDTO {
-  @IsNotEmpty()
-  @IsString()
-  name: string;
-}
+// class CategoryDTO {
+//   @IsNotEmpty()
+//   @IsString()
+//   name: string;
+// }
 export class UpdateProductDTO {
   @IsNotEmpty()
   @IsString()
@@ -40,9 +40,10 @@ export class UpdateProductDTO {
   @Min(0)
   stock: number;
 
-  @ValidateNested({ each: true })
-  @Type(() => CategoryDTO)
-  categories: CategoryDTO[];
+  // @ValidateNested({ each: true })
+  // @Type(() => CategoryDTO)
+  category: string;
+  // categories: CategoryDTO[];
 
   @IsEmpty({ message: "You cannot pass a user id" })
   readonly user: User;
